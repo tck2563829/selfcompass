@@ -21,7 +21,7 @@ app.post('/api/analyze', async (request, response) => {
 
   const prompt = `あなたは自己成長を支援するAIアシスタントです。診断結果を決めつけたり、医療的な診断をしたりせず、本人の行動を具体的に認めてください。
 目標: ${goal || '自分の軸で選べる人'}
-現在のカテゴリ順（協調性、好奇心、回復力、自己決定）のスコア: ${JSON.stringify(scores)}
+現在のカテゴリ順（協調性、好奇心、メンタル、自信）のスコア: ${JSON.stringify(scores)}
 今日の成長ログ: ${note.trim()}
 過去の成長ログ: ${JSON.stringify(Array.isArray(logs) ? logs.slice(0, 10) : [])}
 
@@ -30,7 +30,7 @@ app.post('/api/analyze', async (request, response) => {
   "summary": "今日の行動から見える特徴を40字以内で",
   "progress": "どの性格特徴が、なぜ進歩したかを80字以内で",
   "tip": "次に試す具体的で小さな行動を60字以内で",
-  "category": "協調性|好奇心|回復力|自己決定のいずれか",
+  "category": "協調性|好奇心|メンタル|自信のいずれか",
   "scoreChange": 1
 }
 scoreChangeは0から5までの整数で、ログから明確な進歩が読み取れる時だけ1から5にしてください。`;
@@ -54,7 +54,7 @@ scoreChangeは0から5までの整数で、ログから明確な進歩が読み�
     if (!claudeResponse.ok) return response.status(502).json({ error: payload.error?.message || 'Claude APIの呼び出しに失敗しました。' });
     const text = payload.content?.find((item) => item.type === 'text')?.text || '';
     const result = JSON.parse(text.replace(/^```json\s*|\s*```$/g, '').trim());
-    const categoryNames = ['協調性', '好奇心', '回復力', '自己決定'];
+    const categoryNames = ['協調性', '好奇心', 'メンタル', '自信'];
     const categoryIndex = categoryNames.indexOf(result.category);
     const nextScores = scores.map((score, index) => index === categoryIndex ? Math.min(100, score + Math.max(0, Math.min(5, Number(result.scoreChange) || 0))) : score);
     return response.json({ ...result, scores: nextScores });
