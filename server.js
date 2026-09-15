@@ -9,8 +9,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json({ limit: '32kb' }));
 
-app.get('/healthz', (_request, response) => response.json({ status: 'ok' }));
-
 app.post('/api/analyze', async (request, response) => {
   if (!process.env.CLAUDE_API_KEY) {
     return response.status(503).json({ error: 'CLAUDE_API_KEYが設定されていません。' });

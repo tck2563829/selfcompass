@@ -26,6 +26,5 @@ npm run dev
 	- 環境変数: `CLAUDE_API_KEY`、`VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`
 
 Renderのデプロイ後に発行されるURLからアプリを利用できます。ClaudeのAPIキーはRenderの環境変数にだけ登録し、コードやGitHubには書き込みません。
-`/healthz` がRenderのヘルスチェックに使われます。無料プランでは一定時間アクセスがないとスリープするため、再アクセス時に起動待ちが発生することがあります。
 
 ログインと複数端末同期を有効にする手順は [ADMIN_README.md](ADMIN_README.md) を確認してください。
