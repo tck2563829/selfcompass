@@ -44,7 +44,7 @@ scoreChangeは0から5までの整数で、ログから明確な進歩が読み�
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-20250514',
+        model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929',
         max_tokens: 400,
         temperature: 0.3,
         messages: [{ role: 'user', content: prompt }],
